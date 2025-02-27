@@ -21,7 +21,7 @@
         .container {
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-around;
+            justify-content: center;
             padding: 1em;
         }
         .card {
@@ -31,7 +31,7 @@
             margin: 1em;
             padding: 1em;
             text-align: center;
-            width: 100%;
+            flex: 1 1 calc(100% - 2em);
             max-width: 300px;
         }
         .card img {
@@ -45,12 +45,12 @@
         }
         @media (min-width: 600px) {
             .card {
-                width: 45%;
+                flex: 1 1 calc(50% - 2em);
             }
         }
         @media (min-width: 900px) {
             .card {
-                width: 30%;
+                flex: 1 1 calc(33.33% - 2em);
             }
         }
     </style>
