@@ -1,0 +1,88 @@
+---
+- name: Deploy home dashboard
+  hosts: localhost
+  connection: local
+  become: yes
+  gather_facts: no
+  vars:
+    app_user: iamkhush
+    server_name: chaddas.home
+    project_dir: "/home/{{ app_user }}/projects/home-dashboard/"
+
+  tasks:
+    - name: Copy index.html to /var/www/html
+      copy:
+        src: "{{ project_dir }}/index.html"
+        dest: /var/www/html/index.html
+        owner: root
+        group: root
+        mode: '0644'
+      become: yes
+      tags: nginx
+
+    - name: Check if default Nginx site exists
+      stat:
+        path: /etc/nginx/conf.d/default.conf
+      register: default_nginx_site
+      become: yes  # Explicitly enable privilege escalation
+      tags: nginx
+
+    - name: Remove default Nginx site
+      file:
+        path: /etc/nginx/conf.d/default.conf
+        state: absent
+      when: default_nginx_site.stat.exists
+      notify: restart nginx
+      tags: nginx
+
+    - name: Generate Nginx location from template
+      template:
+        src: location.conf.j2
+        dest: /etc/nginx/conf.d/home-dashboard.location
+        owner: root
+        group: root
+        mode: '0644'
+      become: yes
+      tags: nginx
+
+    - name: Generate Nginx configuration from template
+      template:
+        src: nginx.conf.j2
+        dest: /etc/nginx/conf.d/chaddashome.conf
+        owner: root
+        group: root
+        mode: '0644'
+      notify: restart nginx
+      tags: nginx
+
+    - name: Test Nginx configuration
+      command: nginx -t
+      register: nginx_test
+      changed_when: false
+      tags: nginx
+    
+    - name: Restart gunicorn service
+      systemd:
+        name: "{{ item }}"
+        state: restarted
+      loop:
+        - nginx
+        - gunicorn.socket
+        - gunicorn.service
+      tags: restart-services
+
+  handlers:
+    - name: restart nginx
+      systemd:
+        name: nginx
+        state: restarted
+
+    - name: reload systemd
+      systemd:
+        daemon_reload: yes
+
+    - name: restart gunicorn
+      systemd:
+        name: gunicorn.service
+        state: restarted
+
