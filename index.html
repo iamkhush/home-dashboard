@@ -35,9 +35,9 @@
             max-width: 300px;
         }
         .card img {
-            border-radius: 8px;
             max-width: 100%;
-            height: auto;
+            width: 50px;
+            height: 50px;
         }
         .card a {
             color: #ff6347;
@@ -61,21 +61,46 @@
     </header>
     <div class="container">
         <div class="card">
-            <h2>Google Photos</h2>
-            <img src="https://via.placeholder.com/300x200" alt="View purchases & expenses">
-            <p><a href="https://photos.google.com/" target="_blank">View purchases & expenses</a></p>
+            <a href="/what-do-i-own" target="_blank">
+                <h2>Track expenses & purchases</h2>
+                <img src="/static/expenses.png" alt="View purchases & expenses">
+            </a>
         </div>
         <div class="card">
-            <h2>Shopping List</h2>
-            <img src="https://via.placeholder.com/300x200" alt="View Shopping List">
-            <p><a href="#shopping-list">Go to Shopping List</a></p>
+            <a href="#shopping-list">
+                <h2>Shopping List</h2>
+                <img src="/static/Shopping.png" alt="View Shopping List">
+            </a>
         </div>
         <div class="card">
-            <h2>Weekly Menu</h2>
-            <img src="https://via.placeholder.com/300x200" alt="Weekly Menu">
-            <p><a href="#weekly-menu">View Weekly Menu</a></p>
+            <a href="/weekly-meals/" target="_blank">
+                <h2>Weekly Menu</h2>
+                <img src="/static/weekly-menu.png" alt="Weekly Meals">
+            </a>
         </div>
-        <!-- Add more cards for other apps as needed -->
+        <div class="card">
+            <a href="/local-ai/" target="_blank">
+                <h2>Local AI</h2>
+                <img src="/static/local-ai.png" alt="Local AI">
+            </a>
+    </div>
+        <div class="card">
+            <h2>iPhone Certificate</h2>
+            <p>Install this certificate to access the site securely on your iPhone</p>
+            <a href="/static/chaddas.home.cer" style="display: inline-block; background: #ff6347; color: white; padding: 10px 20px; border-radius: 5px; margin-top: 10px;">
+                Download Certificate
+            </a>
+            <div style="font-size: 0.9em; margin-top: 15px; text-align: left; color: #666;">
+                <p><strong>Installation Steps:</strong></p>
+                <ol style="padding-left: 20px;">
+                    <li>Download using Safari</li>
+                    <li>Go to Settings</li>
+                    <li>Tap on Profile Downloaded</li>
+                    <li>Install the certificate</li>
+                    <li>Trust it in Settings > General > About > Certificate Trust Settings</li>
+                </ol>
+            </div>
+        </div>
     </div>
 </body>
 </html>

@@ -1,7 +1,9 @@
 location / {
-    access_log  /var/log/nginx/home-dashboard.log  main;
+    access_log /var/log/nginx/home-dashboard.log  main;
     root /var/www/html/;
     index index.html;
 }
 
-    
+location /static/ {
+    alias /var/www/html/static/;
+}

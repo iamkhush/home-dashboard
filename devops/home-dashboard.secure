@@ -1,4 +1,0 @@
-location / {
-        root /home/ankush/projects/home-dashboard;
-        index index.html;
-    }

@@ -8,6 +8,7 @@
     app_user: iamkhush
     server_name: chaddas.home
     project_dir: "/home/{{ app_user }}/projects/home-dashboard/"
+    nginx_user: nginx
 
   tasks:
     - name: Copy index.html to /var/www/html
@@ -15,7 +16,17 @@
         src: "{{ project_dir }}/index.html"
         dest: /var/www/html/index.html
         owner: root
-        group: root
+        group: "{{ nginx_user }}"
+        mode: '0644'
+      become: yes
+      tags: nginx
+
+    - name: Copy static files to /var/www/html/static
+      copy:
+        src: "{{ project_dir }}/static/"
+        dest: /var/www/html/static/
+        owner: root
+        group: "{{ nginx_user }}"
         mode: '0644'
       become: yes
       tags: nginx
@@ -60,16 +71,6 @@
       register: nginx_test
       changed_when: false
       tags: nginx
-    
-    - name: Restart gunicorn service
-      systemd:
-        name: "{{ item }}"
-        state: restarted
-      loop:
-        - nginx
-        - gunicorn.socket
-        - gunicorn.service
-      tags: restart-services
 
   handlers:
     - name: restart nginx
