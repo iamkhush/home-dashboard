@@ -26,7 +26,7 @@ The **Home Dashboard** is a web-based dashboard designed to be displayed on a ta
      ```
 
 4. **Access the Dashboard**
-   - Open a browser and navigate to the configured domain (e.g., `http://chaddas.home`).
+   - Open a browser and navigate to the configured domain (e.g., `https://chaddas.home`).
 
 ## Requirements
 
