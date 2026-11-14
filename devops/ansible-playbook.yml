@@ -9,6 +9,9 @@
     server_name: chaddas.home
     project_dir: "/home/{{ app_user }}/projects/home-dashboard/"
     nginx_user: nginx
+    ansible_become_method: sudo # Use sudo for privilege escalation
+    ansible_become_flags: '-H -S -k' # -S: read password from stdin, -k: force password prompt (bypasses fingerprint)
+    
 
   tasks:
     - name: Copy index.html to /var/www/html
